@@ -1,0 +1,960 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkliste für Hinterbliebene – Solong</title>
+  <meta name="description" content="Was ist nach einem Todesfall zu erledigen? Unsere Schritt-für-Schritt-Checkliste hilft Hinterbliebenen, alles im Blick zu behalten." />
+  <!-- Plausible Analytics – DSGVO-konform, kein Cookie-Banner nötig -->
+  <!-- ⚠️ SETUP: "DEINE-DOMAIN.de" durch deine echte Domain ersetzen -->
+  <script defer data-domain="DEINE-DOMAIN.de" src="https://plausible.io/js/script.tagged-events.js"></script>
+  <script>window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }</script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green-dark:   #2D6A4F;
+      --green-mid:    #40916C;
+      --green-soft:   #74C69D;
+      --green-light:  #B7E4C7;
+      --green-pale:   #D8F3DC;
+      --green-bg:     #F0FAF4;
+      --white:        #FFFFFF;
+      --gray-text:    #374151;
+      --gray-muted:   #6B7280;
+      --gray-border:  #E5E7EB;
+      --gray-light:   #F9FAFB;
+      --amber:        #D97706;
+      --amber-bg:     #FFFBEB;
+      --amber-border: #FDE68A;
+      --red:          #DC2626;
+      --blue:         #2563EB;
+      --blue-bg:      #EFF6FF;
+      --blue-border:  #BFDBFE;
+      --radius:       .75rem;
+      --radius-lg:    1rem;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.07);
+      --shadow-md:    0 4px 16px rgba(0,0,0,.09);
+      --transition:   all .2s ease;
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      color: var(--gray-text);
+      background: var(--gray-light);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--gray-border);
+    }
+    .nav-inner {
+      max-width: 1120px; margin-inline: auto; padding-inline: 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px; gap: 1rem;
+    }
+    .nav-logo { font-size: 1.4rem; font-weight: 700; color: var(--green-dark); text-decoration: none; }
+    .nav-logo span { color: var(--green-soft); }
+    .nav-back {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .88rem; font-weight: 600; color: var(--gray-muted);
+      text-decoration: none; transition: var(--transition);
+    }
+    .nav-back:hover { color: var(--green-mid); }
+
+    /* ── Layout ── */
+    .page-wrap { max-width: 860px; margin-inline: auto; padding: 2.5rem 1.5rem 5rem; }
+
+    /* ── Page header ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);
+      color: var(--white);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      margin-bottom: 1.75rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-header::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+    .page-header-label {
+      font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--green-light);
+      margin-bottom: .6rem; position: relative;
+    }
+    .page-header h1 {
+      font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 800;
+      line-height: 1.2; margin-bottom: .75rem; position: relative;
+    }
+    .page-header p {
+      font-size: .95rem; opacity: .82; max-width: 560px;
+      line-height: 1.7; position: relative;
+    }
+
+    /* ── Progress bar ── */
+    .progress-card {
+      background: var(--white);
+      border: 1.5px solid var(--gray-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .progress-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 1rem;
+    }
+    .progress-header h2 { font-size: 1rem; font-weight: 700; color: var(--green-dark); }
+    .progress-count { font-size: .88rem; font-weight: 700; color: var(--green-mid); }
+    .progress-bar-bg {
+      background: var(--gray-border);
+      border-radius: 99px; height: 10px; overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%; border-radius: 99px;
+      background: linear-gradient(90deg, var(--green-soft), var(--green-mid));
+      transition: width .4s ease;
+      width: 0%;
+    }
+    .progress-phases {
+      display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1rem;
+    }
+    .phase-pill {
+      font-size: .75rem; font-weight: 600;
+      padding: .3rem .8rem; border-radius: 99px;
+      cursor: pointer; transition: var(--transition);
+      border: 1.5px solid transparent;
+    }
+    .phase-pill.active { border-color: currentColor; }
+    .phase-0 { background: #FEF2F2; color: #B91C1C; }
+    .phase-1 { background: #FFF7ED; color: #C2410C; }
+    .phase-2 { background: #FEFCE8; color: #A16207; }
+    .phase-3 { background: var(--blue-bg); color: var(--blue); }
+    .phase-4 { background: var(--green-pale); color: var(--green-dark); }
+
+    /* ── Comfort note ── */
+    .comfort-note {
+      background: var(--green-bg);
+      border: 1.5px solid var(--green-light);
+      border-radius: var(--radius);
+      padding: 1rem 1.25rem;
+      font-size: .88rem;
+      color: var(--green-dark);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+      display: flex; gap: .75rem; align-items: flex-start;
+    }
+    .comfort-note .icon { font-size: 1.2rem; flex-shrink: 0; margin-top: 1px; }
+
+    /* ── Section ── */
+    .checklist-section { margin-bottom: 1.5rem; }
+    .section-header {
+      display: flex; align-items: center; gap: .75rem;
+      padding: .9rem 1.1rem;
+      border-radius: var(--radius) var(--radius) 0 0;
+      cursor: pointer;
+      user-select: none;
+      transition: var(--transition);
+    }
+    .section-header:hover { filter: brightness(.96); }
+    .section-icon {
+      width: 38px; height: 38px; border-radius: .6rem;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .section-title-group { flex: 1; }
+    .section-phase {
+      font-size: .68rem; font-weight: 700; letter-spacing: .07em;
+      text-transform: uppercase; opacity: .7; margin-bottom: .1rem;
+    }
+    .section-title { font-size: 1rem; font-weight: 700; }
+    .section-meta {
+      display: flex; align-items: center; gap: .75rem;
+      flex-shrink: 0;
+    }
+    .section-count { font-size: .8rem; font-weight: 600; opacity: .75; }
+    .section-chevron {
+      transition: transform .25s ease;
+      opacity: .6;
+    }
+    .section-chevron.open { transform: rotate(180deg); }
+
+    .section-body {
+      background: var(--white);
+      border: 1.5px solid transparent;
+      border-top: none;
+      border-radius: 0 0 var(--radius) var(--radius);
+      overflow: hidden;
+      transition: max-height .35s ease, opacity .25s ease;
+    }
+
+    /* Color variants */
+    .phase-urgent   .section-header { background: #FEF2F2; color: #7F1D1D; }
+    .phase-urgent   .section-icon   { background: #FECACA; }
+    .phase-urgent   .section-body   { border-color: #FECACA; }
+
+    .phase-week     .section-header { background: #FFF7ED; color: #7C2D12; }
+    .phase-week     .section-icon   { background: #FED7AA; }
+    .phase-week     .section-body   { border-color: #FED7AA; }
+
+    .phase-month    .section-header { background: #FEFCE8; color: #713F12; }
+    .phase-month    .section-icon   { background: #FEF08A; }
+    .phase-month    .section-body   { border-color: #FEF08A; }
+
+    .phase-medium   .section-header { background: var(--blue-bg); color: #1E3A8A; }
+    .phase-medium   .section-icon   { background: var(--blue-border); }
+    .phase-medium   .section-body   { border-color: var(--blue-border); }
+
+    .phase-longterm .section-header { background: var(--green-pale); color: var(--green-dark); }
+    .phase-longterm .section-icon   { background: var(--green-light); }
+    .phase-longterm .section-body   { border-color: var(--green-light); }
+
+    /* ── Checklist items ── */
+    .checklist-item {
+      display: flex; align-items: flex-start;
+      gap: .9rem;
+      padding: .9rem 1.1rem;
+      border-bottom: 1px solid var(--gray-border);
+      transition: background .15s;
+      cursor: pointer;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .checklist-item:hover { background: var(--gray-light); }
+    .checklist-item.done { opacity: .55; }
+    .checklist-item.done .item-title { text-decoration: line-through; }
+
+    .item-checkbox {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border: 2px solid var(--gray-border);
+      border-radius: .4rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+      margin-top: 1px;
+      background: var(--white);
+    }
+    .checklist-item.done .item-checkbox {
+      background: var(--green-mid);
+      border-color: var(--green-mid);
+    }
+    .item-checkbox svg { display: none; }
+    .checklist-item.done .item-checkbox svg { display: block; }
+
+    .item-content { flex: 1; }
+    .item-title { font-size: .93rem; font-weight: 600; margin-bottom: .2rem; }
+    .item-desc  { font-size: .82rem; color: var(--gray-muted); line-height: 1.55; }
+    .item-tags  { display: flex; gap: .4rem; flex-wrap: wrap; margin-top: .4rem; }
+    .item-tag {
+      font-size: .68rem; font-weight: 700; letter-spacing: .04em;
+      padding: .15rem .55rem; border-radius: 99px;
+    }
+    .tag-amt   { background: #EEF2FF; color: #4338CA; }  /* Amt / Behörde */
+    .tag-anwalt { background: #F0FDF4; color: #15803D; } /* Anwalt */
+    .tag-bank  { background: #FFFBEB; color: #B45309; }  /* Bank */
+    .tag-vers  { background: #FEF2F2; color: #B91C1C; }  /* Versicherung */
+    .tag-priv  { background: #F5F3FF; color: #6D28D9; }  /* Privat */
+    .tag-digi  { background: #EFF6FF; color: #1D4ED8; }  /* Digital */
+
+    /* ── Tip card ── */
+    .tip-card {
+      background: var(--green-bg);
+      border: 1.5px solid var(--green-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .tip-card h3 { font-size: .95rem; font-weight: 700; color: var(--green-dark); margin-bottom: .5rem; }
+    .tip-card p  { font-size: .87rem; color: var(--gray-muted); line-height: 1.65; }
+
+    /* ── Print button ── */
+    .toolbar {
+      display: flex; gap: .75rem; flex-wrap: wrap;
+      align-items: center; margin-bottom: 1.5rem;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-size: .85rem; font-weight: 600; padding: .55rem 1.1rem;
+      border-radius: 99px; border: 1.5px solid var(--gray-border);
+      background: var(--white); cursor: pointer; transition: var(--transition);
+      color: var(--gray-text);
+    }
+    .btn:hover { border-color: var(--green-soft); color: var(--green-dark); }
+    .btn-primary {
+      background: var(--green-mid); color: var(--white);
+      border-color: var(--green-mid);
+    }
+    .btn-primary:hover { background: var(--green-dark); border-color: var(--green-dark); color: var(--white); }
+
+    /* ── Footer ── */
+    .page-footer {
+      text-align: center; margin-top: 3rem;
+      font-size: .82rem; color: var(--gray-muted);
+    }
+    .page-footer a { color: var(--green-mid); text-decoration: none; }
+    .page-footer a:hover { text-decoration: underline; }
+
+    /* ── Print styles ── */
+    @media print {
+      nav, .toolbar, .progress-phases, .phase-pill { display: none !important; }
+      .page-header { background: var(--green-dark) !important; -webkit-print-color-adjust: exact; }
+      .section-body { max-height: none !important; opacity: 1 !important; }
+      .checklist-item { break-inside: avoid; }
+    }
+
+    @media (max-width: 600px) {
+      .page-header { padding: 1.75rem 1.25rem; }
+      .section-meta .section-count { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── Nav ── -->
+  <nav>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">So<span>long</span></a>
+      <a href="index.html" class="nav-back">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Zurück zur Startseite
+      </a>
+    </div>
+  </nav>
+
+  <div class="page-wrap">
+
+    <!-- ── Page header ── -->
+    <div class="page-header">
+      <div class="page-header-label">Hilfe für Hinterbliebene</div>
+      <h1>Was jetzt zu tun ist – Schritt für Schritt.</h1>
+      <p>Der Verlust eines geliebten Menschen ist überwältigend. Diese Checkliste hilft dir, nichts zu vergessen – ohne Druck. Hake ab, was erledigt ist, und lass alles andere bis morgen.</p>
+    </div>
+
+    <!-- ── Comfort note ── -->
+    <div class="comfort-note">
+      <div class="icon">🌿</div>
+      <div>
+        <strong>Du musst das nicht alleine bewältigen.</strong> Diese Liste ist eine Orientierungshilfe – kein Muss-Plan. Manche Dinge können warten. Bitte dir Unterstützung von Familie, Freunden oder einem Bestattungsunternehmen, das dich begleitet.
+      </div>
+    </div>
+
+    <!-- ── Progress ── -->
+    <div class="progress-card">
+      <div class="progress-header">
+        <h2>Dein Fortschritt</h2>
+        <span class="progress-count" id="progressCount">0 von 0 erledigt</span>
+      </div>
+      <div class="progress-bar-bg">
+        <div class="progress-bar-fill" id="progressBar"></div>
+      </div>
+      <div class="progress-phases">
+        <span class="phase-pill phase-0 active" data-phase="all">Alle anzeigen</span>
+        <span class="phase-pill phase-0" data-phase="urgent">🔴 Sofort</span>
+        <span class="phase-pill phase-1" data-phase="week">🟠 Erste Woche</span>
+        <span class="phase-pill phase-2" data-phase="month">🟡 Erster Monat</span>
+        <span class="phase-pill phase-3" data-phase="medium">🔵 2–6 Monate</span>
+        <span class="phase-pill phase-4" data-phase="longterm">🟢 Langfristig</span>
+      </div>
+    </div>
+
+    <!-- ── Toolbar ── -->
+    <div class="toolbar">
+      <button class="btn" onclick="expandAll()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+        Alle aufklappen
+      </button>
+      <button class="btn" onclick="collapseAll()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+        Alle zuklappen
+      </button>
+      <button class="btn" onclick="window.print()">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+        Drucken / PDF
+      </button>
+      <button class="btn" onclick="resetAll()" style="margin-left:auto;color:#9CA3AF;">
+        Fortschritt zurücksetzen
+      </button>
+    </div>
+
+    <!-- ════════════════════════════════════
+         PHASE 1 – SOFORT (1–3 Tage)
+    ════════════════════════════════════ -->
+    <div class="checklist-section" data-phase="urgent">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">⏰</div>
+        <div class="section-title-group">
+          <div class="section-phase">Sofort – innerhalb von 1 bis 3 Tagen</div>
+          <div class="section-title">Erste, dringende Schritte</div>
+        </div>
+        <div class="section-meta">
+          <span class="section-count"></span>
+          <svg class="section-chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Arzt oder Notarzt benachrichtigen</div>
+            <div class="item-desc">Ein Arzt muss den Tod feststellen und einen Totenschein ausstellen. Dieser ist die Grundlage für alle weiteren Schritte.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Bestattungsunternehmen beauftragen</div>
+            <div class="item-desc">Das Bestattungsunternehmen übernimmt die Überführung und begleitet euch durch viele weitere Schritte – es ist ein wichtiger Partner in dieser Zeit.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Engste Familie und wichtige Personen informieren</div>
+            <div class="item-desc">Kinder, Geschwister, engste Freunde, Arbeitgeber der verstorbenen Person. Bitte dir Hilfe beim Telefonieren, wenn es dir zu viel wird.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Sterbeurkunde beim Standesamt beantragen</div>
+            <div class="item-desc">Mehrere Ausfertigungen anfragen (mind. 5–10). Die Sterbeurkunde wird für fast alle weiteren Behördengänge benötigt. Zuständig ist das Standesamt am Sterbeort.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Testament oder Erbvertrag suchen</div>
+            <div class="item-desc">Wenn ein Testament vorhanden ist, muss es unverzüglich beim zuständigen Nachlassgericht eingereicht werden. Auch notarielle Verwahrung prüfen.</div>
+            <div class="item-tags"><span class="item-tag tag-anwalt">Rechtlich</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Haustiere versorgen</div>
+            <div class="item-desc">Falls Tiere alleine in der Wohnung sind, umgehend für Versorgung sorgen.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         PHASE 2 – ERSTE WOCHE
+    ════════════════════════════════════ -->
+    <div class="checklist-section" data-phase="week">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">📋</div>
+        <div class="section-title-group">
+          <div class="section-phase">Erste Woche – Bestattung & Behörden</div>
+          <div class="section-title">Organisation & erste Formalitäten</div>
+        </div>
+        <div class="section-meta">
+          <span class="section-count"></span>
+          <svg class="section-chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Bestattung planen und organisieren</div>
+            <div class="item-desc">Art der Bestattung, Friedhof, Grabstätte, Blumen, Musik, Trauerrede. Falls Beisetzungswünsche vorliegen – unbedingt beachten.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Traueranzeige und Benachrichtigungen versenden</div>
+            <div class="item-desc">Zeitung, digitale Kanäle, Vereine, Kirchengemeinde, Arbeitgeber des Verstorbenen – je nach Wunsch und Umfeld.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Krankenversicherung informieren</div>
+            <div class="item-desc">Die Krankenversicherung der verstorbenen Person muss umgehend benachrichtigt werden. Familienversicherung der Angehörigen prüfen.</div>
+            <div class="item-tags"><span class="item-tag tag-vers">Versicherung</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Arbeitgeber informieren (eigener)</div>
+            <div class="item-desc">Dem eigenen Arbeitgeber Bescheid geben, um Sonderurlaub (Trauerurlaub) in Anspruch zu nehmen.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Testament beim Nachlassgericht einreichen</div>
+            <div class="item-desc">Das Original-Testament ist unverzüglich beim zuständigen Amtsgericht (Nachlassgericht) abzugeben. Dies ist gesetzlich verpflichtend.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span><span class="item-tag tag-anwalt">Rechtlich</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Bankkonten vorläufig sichern</div>
+            <div class="item-desc">Die Bank informieren, laufende Daueraufträge prüfen. Konten werden im Erbfall eingefroren – für dringende Kosten (z.B. Bestattung) gibt es Ausnahmen.</div>
+            <div class="item-tags"><span class="item-tag tag-bank">Bank</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Lebensversicherung prüfen und melden</div>
+            <div class="item-desc">Existierende Lebensversicherungen zeitnah melden. Oft gibt es Fristen für die Auszahlung.</div>
+            <div class="item-tags"><span class="item-tag tag-vers">Versicherung</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         PHASE 3 – ERSTER MONAT
+    ════════════════════════════════════ -->
+    <div class="checklist-section" data-phase="month">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">📁</div>
+        <div class="section-title-group">
+          <div class="section-phase">Erster Monat – Erbschaft & Verträge</div>
+          <div class="section-title">Behördengänge, Versicherungen & Kündigung von Verträgen</div>
+        </div>
+        <div class="section-meta">
+          <span class="section-count"></span>
+          <svg class="section-chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Erbschaft annehmen oder ausschlagen (6-Wochen-Frist!)</div>
+            <div class="item-desc">Die Erbschaft kann innerhalb von 6 Wochen ausgeschlagen werden – z.B. bei Schulden. Diese Frist beginnt mit Kenntnis des Todes. Rechtlichen Rat einholen.</div>
+            <div class="item-tags"><span class="item-tag tag-anwalt">Rechtlich</span><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Erbschein beantragen (wenn nötig)</div>
+            <div class="item-desc">Beim Nachlassgericht beantragen. Wird von Banken und Grundbuchämtern benötigt, um auf das Erbe zugreifen zu können.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span><span class="item-tag tag-anwalt">Rechtlich</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Rentenversicherung und Rentenbezug abmelden</div>
+            <div class="item-desc">Deutsche Rentenversicherung informieren. Zu viel ausgezahlte Rente muss ggf. zurückgezahlt werden. Hinterbliebenenrente prüfen.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Hinterbliebenenrente beantragen</div>
+            <div class="item-desc">Witwenrente / Witwerrente bei der Deutschen Rentenversicherung beantragen. Auch Waisenrente prüfen.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Finanzamt informieren</div>
+            <div class="item-desc">Einkommensteuerpflicht endet mit dem Tod. Letzte Steuererklärung muss ggf. noch eingereicht werden. Erbschaftsteuerpflicht prüfen.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Mietvertrag kündigen oder übernehmen</div>
+            <div class="item-desc">Erben können den Mietvertrag mit gesetzlicher Frist (3 Monate) kündigen. Wohnungsauflösung organisieren. Kaution und Schlüssel regeln.</div>
+            <div class="item-tags"><span class="item-tag tag-anwalt">Rechtlich</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Verträge und Abonnements kündigen</div>
+            <div class="item-desc">Telefon, Internet, Zeitschriften, Streaming-Dienste, Mitgliedschaften, Vereine, Rundfunkbeitrag (GEZ) etc.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Versicherungen prüfen und kündigen / anpassen</div>
+            <div class="item-desc">Haftpflicht, Hausrat, Kfz, Rechtsschutz etc. – welche Policen enden, welche übernommen werden können.</div>
+            <div class="item-tags"><span class="item-tag tag-vers">Versicherung</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Nachlassverzeichnis erstellen</div>
+            <div class="item-desc">Alle Vermögenswerte, Schulden, Konten, Immobilien, Fahrzeuge, wertvolle Gegenstände schriftlich erfassen.</div>
+            <div class="item-tags"><span class="item-tag tag-anwalt">Rechtlich</span><span class="item-tag tag-bank">Bank</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Post umleiten</div>
+            <div class="item-desc">Nachsendeauftrag bei der Deutschen Post einrichten, damit keine wichtige Post verloren geht.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         PHASE 4 – 2 bis 6 MONATE
+    ════════════════════════════════════ -->
+    <div class="checklist-section" data-phase="medium">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">⚖️</div>
+        <div class="section-title-group">
+          <div class="section-phase">2 bis 6 Monate – Erbschaft abwickeln</div>
+          <div class="section-title">Immobilien, Fahrzeuge & rechtliche Abwicklung</div>
+        </div>
+        <div class="section-meta">
+          <span class="section-count"></span>
+          <svg class="section-chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Erbschaftsteuer prüfen und ggf. anmelden</div>
+            <div class="item-desc">Das Finanzamt muss über den Erbfall informiert werden. Freibeträge prüfen (Ehepartner: 500.000 €, Kinder: 400.000 €). Frist: 3 Monate nach Kenntnis.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span><span class="item-tag tag-anwalt">Rechtlich</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Immobilien und Grundbuch umschreiben lassen</div>
+            <div class="item-desc">Immobilien müssen im Grundbuch auf die Erben umgeschrieben werden – durch einen Notar. Innerhalb von 2 Jahren ist dies kostenfrei.</div>
+            <div class="item-tags"><span class="item-tag tag-anwalt">Rechtlich</span><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Fahrzeuge ummelden oder abmelden</div>
+            <div class="item-desc">Beim Straßenverkehrsamt Kfz auf neue Eigentümer umschreiben oder abmelden. Kfz-Versicherung anpassen.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span><span class="item-tag tag-vers">Versicherung</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Bankkonten und Depots übertragen</div>
+            <div class="item-desc">Mit Erbschein oder Testament Konten auf Erben übertragen oder auflösen lassen.</div>
+            <div class="item-tags"><span class="item-tag tag-bank">Bank</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Letzte Steuererklärung einreichen</div>
+            <div class="item-desc">Als Erbe bist du verpflichtet, für das Todesjahr noch eine Einkommensteuererklärung für die verstorbene Person abzugeben.</div>
+            <div class="item-tags"><span class="item-tag tag-amt">Behörde</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════════
+         PHASE 5 – LANGFRISTIG
+    ════════════════════════════════════ -->
+    <div class="checklist-section" data-phase="longterm">
+      <div class="section-header" onclick="toggleSection(this)">
+        <div class="section-icon">🌱</div>
+        <div class="section-title-group">
+          <div class="section-phase">Langfristig – wenn du bereit bist</div>
+          <div class="section-title">Digitales Erbe & persönliche Dinge</div>
+        </div>
+        <div class="section-meta">
+          <span class="section-count"></span>
+          <svg class="section-chevron open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+        </div>
+      </div>
+      <div class="section-body">
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Social-Media-Profile regeln</div>
+            <div class="item-desc">Facebook, Instagram & Co. können in Gedenkseiten umgewandelt oder gelöscht werden. Viele Plattformen haben spezielle Prozesse für Todesfälle.</div>
+            <div class="item-tags"><span class="item-tag tag-digi">Digital</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">E-Mail-Konten und Online-Accounts schließen</div>
+            <div class="item-desc">Google, Apple-ID, PayPal, Amazon – alle Accounts sichern oder löschen. Abonnements kontrollieren, die noch abgebucht werden könnten.</div>
+            <div class="item-tags"><span class="item-tag tag-digi">Digital</span><span class="item-tag tag-bank">Bank</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Fotos, Briefe und Erinnerungsstücke sichern</div>
+            <div class="item-desc">Analoge Fotos digitalisieren, Briefe und Dokumente archivieren. Wertvolle Gegenstände in der Familie besprechen und aufteilen.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Grabpflege organisieren</div>
+            <div class="item-desc">Nutzungsrecht des Grabes prüfen, Grabpflegevertrag oder ehrenamtliche Lösung organisieren.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span></div>
+          </div>
+        </div>
+
+        <div class="checklist-item" onclick="toggleItem(this)">
+          <div class="item-checkbox"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="item-content">
+            <div class="item-title">Eigene Vorsorge überdenken</div>
+            <div class="item-desc">Diese Erfahrung zeigt, wie wichtig Vorsorge ist. Überlege, eine Patientenverfügung, Vollmachten und einen digitalen Nachlass für dich selbst anzulegen.</div>
+            <div class="item-tags"><span class="item-tag tag-priv">Privat</span><span class="item-tag tag-anwalt">Rechtlich</span></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── Tip card ── -->
+    <div class="tip-card">
+      <h3>💡 Tipp: Hilfe annehmen</h3>
+      <p>Du musst das alles nicht alleine erledigen. Vertrauenspersonen können Telefonate übernehmen, beim Sortieren helfen oder einfach da sein. Viele Bestattungsunternehmen bieten auch Nachsorgeberatung an – frag ruhig danach. Und wenn du dich überfordert fühlst: Das ist normal. Trauer braucht Zeit.</p>
+    </div>
+
+    <!-- ── Footer ── -->
+    <div class="page-footer">
+      <p>Diese Checkliste ersetzt keine Rechtsberatung. Bei komplexen Erbfällen empfehlen wir, einen Anwalt für Erbrecht hinzuzuziehen.</p>
+      <p style="margin-top:.5rem;">
+        <a href="index.html">← Zurück zu Solong</a> &nbsp;·&nbsp;
+        <a href="datenschutz.html">Datenschutz</a> &nbsp;·&nbsp;
+        <a href="impressum.html">Impressum</a>
+      </p>
+    </div>
+
+  </div><!-- /page-wrap -->
+
+  <script>
+    // ── State ──
+    const STORAGE_KEY = 'solong_checklist';
+    let checked = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+
+    // ── Init ──
+    document.addEventListener('DOMContentLoaded', () => {
+      // Restore checked state
+      document.querySelectorAll('.checklist-item').forEach((item, i) => {
+        item.dataset.id = i;
+        if (checked[i]) item.classList.add('done');
+      });
+      updateProgress();
+      updateSectionCounts();
+    });
+
+    // ── Analytics helper ──
+    function track(eventName, props) {
+      if (typeof plausible === 'function') {
+        plausible(eventName, { props: props || {} });
+      }
+    }
+
+    // ── Toggle item ──
+    function toggleItem(el) {
+      const id = el.dataset.id;
+      el.classList.toggle('done');
+      checked[id] = el.classList.contains('done');
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(checked));
+
+      // 📊 Punkt abgehakt tracken
+      if (checked[id]) {
+        const title = el.querySelector('.item-title');
+        const phase = el.closest('.checklist-section');
+        track('Checklist Item Checked', {
+          item: title ? title.textContent.trim().slice(0, 60) : 'unknown',
+          phase: phase ? phase.dataset.phase : 'unknown'
+        });
+      }
+
+      updateProgress();
+      updateSectionCounts();
+    }
+
+    // ── Toggle section collapse ──
+    function toggleSection(header) {
+      const body = header.nextElementSibling;
+      const chevron = header.querySelector('.section-chevron');
+      const isOpen = chevron.classList.contains('open');
+
+      if (isOpen) {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        requestAnimationFrame(() => {
+          body.style.maxHeight = '0';
+          body.style.opacity = '0';
+        });
+        chevron.classList.remove('open');
+      } else {
+        body.style.maxHeight = body.scrollHeight + 'px';
+        body.style.opacity = '1';
+        chevron.classList.add('open');
+        setTimeout(() => { body.style.maxHeight = 'none'; }, 350);
+      }
+    }
+
+    // On load: set max-height for open sections
+    document.querySelectorAll('.section-body').forEach(body => {
+      body.style.maxHeight = 'none';
+      body.style.opacity = '1';
+    });
+
+    function expandAll() {
+      document.querySelectorAll('.section-body').forEach(body => {
+        body.style.maxHeight = 'none';
+        body.style.opacity = '1';
+      });
+      document.querySelectorAll('.section-chevron').forEach(c => c.classList.add('open'));
+    }
+
+    function collapseAll() {
+      document.querySelectorAll('.section-body').forEach(body => {
+        body.style.maxHeight = '0';
+        body.style.opacity = '0';
+      });
+      document.querySelectorAll('.section-chevron').forEach(c => c.classList.remove('open'));
+    }
+
+    // ── Progress ──
+    function updateProgress() {
+      const all   = document.querySelectorAll('.checklist-item:not([style*="display: none"])').length;
+      const done  = document.querySelectorAll('.checklist-item.done:not([style*="display: none"])').length;
+      const total = document.querySelectorAll('.checklist-item').length;
+      const totalDone = document.querySelectorAll('.checklist-item.done').length;
+
+      document.getElementById('progressCount').textContent = `${totalDone} von ${total} erledigt`;
+      document.getElementById('progressBar').style.width = total > 0 ? (totalDone / total * 100) + '%' : '0%';
+    }
+
+    // ── Section counts ──
+    function updateSectionCounts() {
+      document.querySelectorAll('.checklist-section').forEach(section => {
+        const items = section.querySelectorAll('.checklist-item');
+        const done  = section.querySelectorAll('.checklist-item.done');
+        const count = section.querySelector('.section-count');
+        if (count) count.textContent = `${done.length}/${items.length}`;
+      });
+    }
+
+    // ── Phase filter ──
+    document.querySelectorAll('.phase-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        document.querySelectorAll('.phase-pill').forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+
+        const phase = pill.dataset.phase;
+        // 📊 Phasen-Filter tracken
+        if (phase !== 'all') track('Checklist Phase Filter', { phase: phase });
+
+        document.querySelectorAll('.checklist-section').forEach(section => {
+          if (phase === 'all' || section.dataset.phase === phase) {
+            section.style.display = '';
+          } else {
+            section.style.display = 'none';
+          }
+        });
+        updateProgress();
+      });
+    });
+
+    // ── Reset ──
+    function resetAll() {
+      if (!confirm('Möchtest du deinen gesamten Fortschritt zurücksetzen?')) return;
+      checked = {};
+      localStorage.removeItem(STORAGE_KEY);
+      document.querySelectorAll('.checklist-item').forEach(item => item.classList.remove('done'));
+      updateProgress();
+      updateSectionCounts();
+    }
+
+    // ── Scroll-Tiefe tracken ──
+    const depths = { 25: false, 50: false, 75: false, 100: false };
+    window.addEventListener('scroll', function() {
+      const scrolled = (window.scrollY + window.innerHeight) / document.body.scrollHeight * 100;
+      for (const depth in depths) {
+        if (!depths[depth] && scrolled >= depth) {
+          depths[depth] = true;
+          track('Scroll Depth', { percent: depth + '%', page: 'Checkliste' });
+        }
+      }
+    });
+
+    // ── Drucken tracken ──
+    window.addEventListener('beforeprint', function() {
+      track('Checklist Printed');
+    });
+  </script>
+
+</body>
+</html>
